@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         }
     }
     @objc func intervalTimer() {
-    stateSemafor += stateSemafor
+    stateSemafor += 1
         if stateSemafor > 2 {
         
         stateSemafor = 1
@@ -50,10 +50,36 @@ class ViewController: UIViewController {
             break
         }
     }
-    @IBAction func driveGame(_ sender: UIButton) }
+    @IBAction func startGame(_ sender: UIButton)  {
+    semaforLabel.isHidden = false
 
-            
+    timerGame =
+    Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(intervalTimer), userInfo: nil, repeats: true)
+        timerPC = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector:  #selector(pcDrive), userInfo: nil, repeats: true)
+
+    }
+    
+    @IBAction func driveGame(_ sender: UIButton) {
+        if stateSemafor == 2 {
+            userCar.center.x += 10
+        } else if stateSemafor == 1 {
+            userCar.center.x -= 10
+        }
+        
+        if userCar.center.x > lineFinish.center.x {
+            resultLabel.text = "YOU WIN!"
+            resultLabel.textColor = .green
+            timerPC.invalidate()
+            timerGame.invalidate()
         }
     }
+        
+}
+        
+    
+
+            
+        
+    
     
 
